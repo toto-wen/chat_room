@@ -27,7 +27,7 @@ public class CachedThreadPool {
             //通过Executor服务的execute方法来执行线程
             exec.execute(new LiftOff());
         }
-        //关闭线程池服务
+        //关闭线程池加载服务,阻止其他线程被加载如线程池，
         exec.shutdown();
 
     }
