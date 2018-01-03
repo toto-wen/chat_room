@@ -35,7 +35,7 @@ public class ManagerFactory {
     public static BaseManager getManager(String className){
         //加载类路径文件
         File loadFile=new File(CLASS_PATH+className.replaceAll("\\.","/")+".class");
-        //
+        // 获取最后修改时间
         Long lastModified=loadFile.lastModified();
         /**
          * loadTimeMap不包含className为key的loadInfo信息，证明这个类没有被加载，那么需要加载这个类到JVM
@@ -45,7 +45,7 @@ public class ManagerFactory {
         }else if(loadTimeMap.get(className).getLoadTime()!=lastModified) {//加载类的时间戳变化了，我们同样重新加载这个类到JVM
             load(className,lastModified);
         }
-        return null;
+        return loadTimeMap.get(className).getBaseManager();
     }
 
     private static void load(String className, Long lastModified) {
